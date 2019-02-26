@@ -1,0 +1,7 @@
+# from flask_sqlalchemy import SQLAlchemy
+from flask import Blueprint
+main = Blueprint('main',__name__)
+from . import views,error
+
+
+
