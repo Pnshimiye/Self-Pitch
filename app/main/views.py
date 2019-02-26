@@ -29,13 +29,13 @@ from .. import db,photos
     # else:
     #     return render_template('index.html', title = title, popular = popular_movies, upcoming = upcoming_movie, now_showing = now_showing_movie )
 
-# @main.route('/movies/<int:id>')
-# def movies(movie_id):
+@main.route('/movies/<int:id>')
+def movies(movie_id):
 
-    # '''
-    # View movie page function that returns the movie details page and its data
-    # '''
-    # return render_template('movie.html',id = movie_id)
+    '''
+    View movie page function that returns the movie details page and its data
+    '''
+    return render_template('movie.html',id = movie_id)
 
 
 
@@ -68,30 +68,30 @@ from .. import db,photos
 #     return render_template('search.html',movies = searched_movies)
 
 
-# @main.route('/movie/review/new/<int:id>', methods = ['GET','POST'])
-# @login_required
-# def new_review(id):
-#     form = ReviewForm()
-#     movie = get_movie(id)
+@main.route('/movie/review/new/<int:id>', methods = ['GET','POST'])
+@login_required
+def new_review(id):
+    form = ReviewForm()
+    movie = get_movie(id)
 
-#     if form.validate_on_submit():
-#         title = form.title.data
-#         review = form.review.data
-#         new_review = Review(movie.id,title,movie.poster,review)
-#         new_review.save_review()
-#         return redirect(url_for('main.movie',id = movie.id ))
+    if form.validate_on_submit():
+        title = form.title.data
+        review = form.review.data
+        new_review = Review(movie.id,title,movie.poster,review)
+        new_review.save_review()
+        return redirect(url_for('main.movie',id = movie.id ))
 
-#     title = f'{movie.title} review'
-#     return render_template('new_review.html',title = title, review_form=form, movie=movie)
+    title = f'{movie.title} review'
+    return render_template('new_review.html',title = title, review_form=form, movie=movie)
 
-# @main.route('/user/<uname>')
-# def profile(uname):
-#     user = User.query.filter_by(username = uname).first()
+@main.route('/user/<uname>')
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
 
-#     if user is None:
-#         abort(404)
+    if user is None:
+        abort(404)
 
-#     return render_template("profile/profile.html", user = user)
+    return render_template("profile/profile.html", user = user)
 
 
 
