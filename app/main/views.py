@@ -1,6 +1,6 @@
 from flask import render_template,redirect,url_for,abort
 from . import main  
-from .forms import ReviewForm,UpdateProfile
+from .forms import UpdateProfile
 # from ..models import Review,User
 from ..models import User
 from flask_login import login_required
@@ -104,12 +104,15 @@ def update_profile(uname):
         abort(404)
 
     form = UpdateProfile()
+    user.pitch = form.pitch.data
+       
 
     if form.validate_on_submit():
-        user.bio = form.bio.data
-
         db.session.add(user)
         db.session.commit()
+       
+
+    
 
         return redirect(url_for('.profile',uname=user.username))
 
@@ -125,6 +128,27 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+# @main.route('/user/<uname>/update/pitcf',methods= ['POST'])
+# @login_required
+# def update_pitch(uname):
+#     user = User.query.filter_by(username = uname).first()
+#     if pitch:
+#         # filename = photos.save(request.files['photo'])
+#         # path = f'photos/{filename}'
+#         # user.profile_pic_path = path
+#         db.session.commit()
+#     return redirect(url_for('main.profile',uname=uname))
+
+@main.route('/')
+def index():
+    """ View root page function that returns index page
+    """
+     
+
+    title = 'Home- Welcome'
+    return render_template('index.html', title = title, )
+
 
 
 

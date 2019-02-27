@@ -6,10 +6,10 @@
     <h3> {{user.username| capitalize}} </h3>
 
     <!--Displaying user bio-->
-    {% if user.bio %}
-      <p> {{user.bio}}</p>
+    {% if user.pitch %}
+      <p> {{user.pitch}}</p>
     {%else%}
-      <p> {{user.username| capitalize}} has no bio </p>
+      <p> {{user.username| capitalize}} has no pitch yet </p>
     {% endif %}
   </div>
 
@@ -27,24 +27,14 @@
     {% endif %}
   </div>
 
-  <div class="col-md-4">
-    {% if user.profile_pic_path %}
-
-    <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
-
-    {%else%}
-    <p>No profile picture</p>
-
-    {% endif %}
-
-        {% if user == current_user %}
+     {% if user == current_user %}
     <form  action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype = "multipart/form-data">
 
       <input type="file"  name="photo" class="form-control" required>
       <input type="submit">
     </form>
-      {% endif %}
-  </div>
+      {% endif %} 
+  </div> 
 </div>
 </div>
 {% endblock %}
