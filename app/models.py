@@ -92,11 +92,36 @@ class User(UserMixin,db.Model):
 class Pitch(db.Model):
     __tablename__ ='pitches'
 
+    all_pitches = []
+
     id = db.Column(db.Integer,primary_key = True)
     pitch= db.Column(db.String(400))
     teaser= db.Column(db.String(50))
-    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))  
+
+ 
+
+
+    def save_pitch(self):
+        Pitch.all_pitches.append(self)
+
+
+    @classmethod
+    def clear_pitches(cls):
+        Pitch.all_pitches.clear()
+
+    @classmethod
+    def get_pitches(cls,username):
+
+        response = []
+
+        for pitch in cls.all_pitches:
+            if pitch.user_username == username:
+                response.append(pitch)
+
+        return response
+
+ 
 
 
     def __repr__(self):
