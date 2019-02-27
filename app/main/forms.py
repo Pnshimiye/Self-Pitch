@@ -17,6 +17,6 @@ from wtforms.validators import Required
 
 class PitchForm(FlaskForm):
 
-    narration = StringField('Pitch Narration',validators=[Required()])
-    # review = TextAreaField('Movie review', validators=[Required()])
+    teaser = StringField('Pitch Teaser',validators=[Required()])
+    pitch = TextAreaField('Whole Pitch', validators=[Required()])
     submit = SubmitField('Submit')

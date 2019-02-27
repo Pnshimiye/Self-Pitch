@@ -93,7 +93,8 @@ class Pitch(db.Model):
     __tablename__ ='pitches'
 
     id = db.Column(db.Integer,primary_key = True)
-    narration= db.Column(db.String(400))
+    pitch= db.Column(db.String(400))
+    teaser= db.Column(db.String(50))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     
 

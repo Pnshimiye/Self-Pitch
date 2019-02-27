@@ -1,11 +1,14 @@
 from flask import render_template,redirect,url_for,abort
 from . import main  
-from .forms import UpdateProfile
+# from .forms import UpdateProfile
 # from ..models import Review,User
-from ..models import User
+# from ..models import User
 from flask_login import login_required
 from .. import db,photos    
 
+from .models import pitch,User
+from .forms import PitchForm
+Pitch = pitch.Pitch
 
 
 # @main.route('/')
@@ -41,7 +44,7 @@ def movies(movie_id):
 
  
 
-# @main.route('/movie/<int:id>')
+# @main.route('/usee/<int:id>')
 # def movie(id):
 
 #     '''
