@@ -15,10 +15,10 @@ from .forms import PitchForm
 def index():
     """ View root page function that returns index page
     """
-
+    all_pitches = Pitch.get_pitches()
 
     title = 'Home- Welcome'
-    return render_template('index.html', title = title)
+    return render_template('index.html', title = title, )
 
 # @main.route('/movies/<int:id>')
 # def movies(movie_id):
