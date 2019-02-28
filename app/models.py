@@ -91,6 +91,19 @@ class Comment(db.Model):
     pitch_id= db.Column(db.Integer,db.ForeignKey('pitches.id'))
 
 
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comment(id):
+
+        Comment= Comment.query.filter(pitch_id)
+
+        return comment
+
+
+
 
 
 
