@@ -92,7 +92,7 @@ class User(UserMixin,db.Model):
 class Pitch(db.Model):
     __tablename__ ='pitches'
 
-    all_pitches = []
+    # all_pitches = []
 
     id = db.Column(db.Integer,primary_key = True)
     pitch= db.Column(db.String(400))
@@ -103,7 +103,9 @@ class Pitch(db.Model):
 
 
     def save_pitch(self):
-        Pitch.all_pitches.append(self)
+        # Pitch.all_pitches.append(self)
+        db.session.add(self)
+        db.session.commit()
 
 
     @classmethod
@@ -111,21 +113,17 @@ class Pitch(db.Model):
         Pitch.all_pitches.clear()
 
     @classmethod
-    def get_pitches(cls,username):
+    def get_pitches(id):
 
-        response = []
+        pitches= Pitch.query.all()
+        # response = []
 
-        for pitch in cls.all_pitches:
-            if pitch.user_username == username:
-                response.append(pitch)
+        # for pitch in cls.all_pitches:
+        #     if pitch.user_username == username:
+        #         response.append(pitch)
 
-        return response
+        return pitches
 
- 
-
-
-    def __repr__(self):
-        return f'User {self.name}'
 
 
 

@@ -3,7 +3,7 @@ from . import main
 # from .forms import UpdateProfile
 # from ..models import Review,User
 # from ..models import User
-from flask_login import login_required
+from flask_login import login_required,current_user
 from .. import db,photos    
 
 from ..models import Pitch,User
@@ -11,49 +11,37 @@ from .forms import PitchForm
 
 
 
-# @main.route('/')
-# def index():
+@main.route('/')
+def index():
+    """ View root page function that returns index page
+    """
 
-    # '''
-    # # View root page function that returns the index page and its data
-    # # '''
 
-    # # Getting popular movie
-    # popular_movies = get_movies('popular')
-    # upcoming_movie = get_movies('upcoming')
-    # now_showing_movie = get_movies('now_playing')
+    title = 'Home- Welcome'
+    return render_template('index.html', title = title)
 
-    # title = 'Home - Welcome to The best Movie Review Website Online'
+# @main.route('/movies/<int:id>')
+# def movies(movie_id):
 
-    # search_movie = request.args.get('movie_query')
+#     '''
+#     View movie page function that returns the movie details page and its data
+#     '''
+#     return render_template('movie.html',id = movie_id)
 
-    # if search_movie:
-    #     return redirect(url_for('main.search',movie_name=search_movie))
-    # else:
-    #     return render_template('index.html', title = title, popular = popular_movies, upcoming = upcoming_movie, now_showing = now_showing_movie )
+# @main.route('/user/review/new/<int:id>', methods = ['GET','POST'])
+# def new_review(id):
+#     form = ReviewForm()
+#     movie = get_movie(id)
 
-@main.route('/movies/<int:id>')
-def movies(movie_id):
+#     if form.validate_on_submit():
+#         title = form.title.data
+#         review = form.review.data
+#         new_review = Review(movie.id,title,movie.poster,review)
+#         new_review.save_review()
+#         return redirect(url_for('movie',id = movie.id ))
 
-    '''
-    View movie page function that returns the movie details page and its data
-    '''
-    return render_template('movie.html',id = movie_id)
-
-@main.route('/user/review/new/<int:id>', methods = ['GET','POST'])
-def new_review(id):
-    form = ReviewForm()
-    movie = get_movie(id)
-
-    if form.validate_on_submit():
-        title = form.title.data
-        review = form.review.data
-        new_review = Review(movie.id,title,movie.poster,review)
-        new_review.save_review()
-        return redirect(url_for('movie',id = movie.id ))
-
-    title = f'{movie.title} review'
-    return render_template('new_review.html',title = title, review_form=form, movie=movie)
+#     title = f'{movie.title} review'
+#     return render_template('new_review.html',title = title, review_form=form, movie=movie)
 
  
 
@@ -72,33 +60,30 @@ def new_review(id):
 #     return render_template('search.html',movies = searched_movies)
 
 
-@main.route('/user/pitch/new/<username>', methods = ['GET','POST'])
+@main.route('/pitch/new', methods = ['GET','POST'])
 @login_required
-def new_pitch(username):
+def new_pitch():
     form = PitchForm()
-    Pitch = pitch.Pitch
+    # Pitch = pitch.Pitch
     # movie = get_movie(id)
 
     if form.validate_on_submit():
         # title = form.title.data
+        teaser = form.teaser.data
         pitch = form.pitch.data
-        new_pitch = Pitch(user.username,pitch)
+        new_pitch = Pitch(user_id=current_user.id,teaser=teaser, pitch=pitch)
         new_pitch.save_pitch()
-        return redirect(url_for('main.user',username = user.username ))
+        return redirect(url_for('.index',pitch = pitch ))
 
-    username = f'{user.username} pitch'
-    return render_template('new_pitch.html',username = username, pitch_form=form, user=user)
-
-@main.route('/user/<uname>')
-def profile(uname):
-    user = User.query.filter_by(username = uname).first()
-
-    if user is None:
-        abort(404)
-
-    return render_template("profile/profile.html", user = user)
+    # username = f'{user.username} pitch'
+    return render_template('new_pitch.html', pitch_form=form)
 
 
+@main.route('/pitches')
+def diplay_pitch():
+    all_pitches = Pitch.get_pitches()
+    print(all_pitches)
+    return render_template("pitches.html",all_pitches=all_pitches)
 
 
 # @main.route('/user/<uname>/update',methods = ['GET','POST'])
@@ -145,14 +130,14 @@ def profile(uname):
 #         db.session.commit()
 #     return redirect(url_for('main.profile',uname=uname))
 
-@main.route('/')
-def index():
-    """ View root page function that returns index page
-    """
+# @main.route('/')
+# def index():
+#     """ View root page function that returns index page
+#     """
      
 
-    title = 'Home- Welcome'
-    return render_template('index.html', title = title, )
+#     title = 'Home- Welcome'
+#     return render_template('index.html', title = title, )
 
 
 

@@ -1,4 +1,5 @@
-
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,53 +7,34 @@
         {% if title %}
         <title> {{ title }}</title>
         {% else %}
-        <!-- <title> Welcome to the best Movie Review website </title> -->
+        <title> THE PITCH MEDIA </title>
         {% endif %}
-        {% extends 'base.html'%}
-        {% import 'macros.html' as macro%}
 
-<!-- Styles block -->
-
-        {% block styles%}
-        {{ super() }}
-        <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
-        {% endblock %}
-        
     </head>
   
     <body>
+        {% for pitch in all_pitches%}
+
+            <h2>{{pitch.user}}</h2>
+            <h3>{{pitch.teaser}}</h3>
+            <p>{{pitch.pitch}}</p>           
+          
+        
+        {%endfor%}
+            
+ 
    
+  
 
-    <!-- Content block -->
-   
-    {% block content %}
+        <div class="container">
+            <form>
+                <input type="text" name="user" placeholder="Search for a Person" class="form-control">
+                <input type="submit"  value="Submit" class="btn btn-default">
+            </form>
 
-<div class="container">
-    <form>
-        <input type="text" name="movie_query" placeholder="Search for a Person" class="form-control">
-        <input type="submit"  value="Submit" class="btn btn-default">
-    </form>
+        </div>
 
-</div>
-
-    <!-- Popular movie
-    <h3> Popular Movies</h3>
-    <ul>
-        {{ macro.displayMovieList(popular)}}
-    </ul>
-    <!-- Upcoming movie  -->
-    <!-- <h3> Upcoming Movies </h3>
-    <ul>
-        {{ macro.displayMovieList(upcoming)}}
-    </ul>
-    <!-- Now showing movie -->
-    <!-- <h3>Now Showing</h3>
-    <ul>
-        {{ macro.displayMovieList(now_showing)}}
-    </ul> -->  
-
-
-{% endblock%}
-       
+    
+ 
 </body>
 </html>
