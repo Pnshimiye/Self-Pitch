@@ -60,6 +60,8 @@ class Pitch(db.Model):
     teaser= db.Column(db.String(50))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))  
     comment = db.relationship('Comment',backref = 'pitches',lazy="dynamic")
+    likes =  db.Column(db.Integer,primary_key = False, default=0)
+
 
  
 
@@ -103,7 +105,11 @@ class Comment(db.Model):
 
         return comment
 
-
+class Pitchvote(db.Model):
+    __tablename__ = 'pitch_vote'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
 
 
