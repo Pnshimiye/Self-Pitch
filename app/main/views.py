@@ -51,23 +51,19 @@ def diplay_pitch():
 @main.route('/comments/<int:id>', methods = ['GET','POST'])
 @login_required
 def new_comment(id):
-    form = CommentForm()   
+    form = CommentForm()  
+    pitch=Pitch.query.filter_by(id=id).first()
 
     if form.validate_on_submit():
         comment = form.comment.data
-       
-        new_comment = Comment(user_id=current_user.id)
+    
+        new_comment = Comment(user_id=current_user.id,pitch_id=pitch.id,comment=comment)
         new_comment.save_comment()
         return redirect(url_for('main.index',comment=comment))
 
     return render_template('comments.html', comment_form=form)
 
 
-@main.route('/pitches/')
-def diplay_comment(id):
-    comment = Comment.get_comment()
-    # print(all_pitches)
-    return render_template("comments.html",comment=comment,pitch_id=pitch.id)
 
 
 

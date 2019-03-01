@@ -59,6 +59,7 @@ class Pitch(db.Model):
     pitch= db.Column(db.String(400))
     teaser= db.Column(db.String(50))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))  
+    comment = db.relationship('Comment',backref = 'pitches',lazy="dynamic")
 
  
 

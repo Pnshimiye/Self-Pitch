@@ -15,20 +15,32 @@
       <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
       {% endblock %}
   </head>
-  <body>
+  <body style="background-color: rgb(45, 109, 109);">
     <div class="pitch-container"> 
       <div class="row">
-        <div class="col-md-16">
-          <div class="well">
+        <div class = "col-md-12">
+          <div class="well" style="padding:20px;">
             
             {%block content%}
               {% for pitch in all_pitches%}
-                <h2>{{pitch.user}}</h2>
+                <h2>Posted by {{pitch.user}}</h2>
                 <h3>{{pitch.teaser}}</h3>
-                <p>{{pitch.pitch}}</p>
-                <a href ="comments/{{pitch.id}}">Comment</a>  
+                <p >{{pitch.pitch}}</p>
+                <h4>comments</h4>
+                 {%for comment in pitch.comment%}
+             
+                 <p style="font-style:oblique;font-size: 18px;color:rgb(226, 188, 142)">{{comment.username}}  {{comment.comment}}</p>
+                 
+                
+                 
+                 {%endfor%}
+                <a href ="comments/{{pitch.id}}"> Add Your Comment</a>  
+                <hr>
+
               {%endfor%}
             {%endblock%}
+            <hr>
+
           </div>
         </div>
       </div>
