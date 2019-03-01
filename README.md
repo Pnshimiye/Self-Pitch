@@ -1,4 +1,6 @@
 # Self Pitch App
+
+
 ## Description
 
 This is an online application where users after registering to it, are able to submit any pitches they want in several categories, and comment on others's pitches
