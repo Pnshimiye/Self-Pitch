@@ -33,6 +33,6 @@ If you wish to give any contribution to my project, or anything else, I can be r
 This project is licensed under the MIT License.
 
 ## Note
-This project is still under development. not all the features mentioned i
+This project is still under development. not all the features and functionalities are working yet
 
 Copyright @ 2019
