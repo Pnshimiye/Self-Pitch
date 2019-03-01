@@ -1,9 +1,9 @@
 import os
-
+class TestConfig:
+    SQLALCHEMY_DATABASE_URI ='postgresql+psycopg2://pauline:0788812609@localhost/pitch'
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 
 class Config:
-
-
     SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI ='postgresql+psycopg2://pauline:0788812609@localhost/pitch'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
@@ -33,6 +33,7 @@ class DevConfig(Config):
 
 config_options = {
 'development':DevConfig,
-'production':ProdConfig
+'production':ProdConfig,
+'test':TestConfig
 }
 

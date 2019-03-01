@@ -1,3 +1,7 @@
-.body{
-  background-image: url(https://media.madeindesign.com/nuxeo/products/c/0/egg-timer-ball-large-red-transparent_madeindesign_292483_original.jpg);
+.head{
+  background-image: url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/H8WuRINimqur8ud/time-background-dark-blue-background-with-digital-clock_b72tac2__F0000.png');
+}
+
+body{
+  text-align:center;
 }

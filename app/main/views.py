@@ -6,8 +6,8 @@ from . import main
 from flask_login import login_required,current_user
 from .. import db,photos    
 
-from ..models import Pitch,User
-from .forms import PitchForm
+from ..models import Pitch,User,Comment
+from .forms import PitchForm,CommentForm
 
 
 
@@ -18,46 +18,8 @@ def index():
     all_pitches = Pitch.get_pitches()
 
     title = 'Home- Welcome'
-    return render_template('index.html', title = title, )
+    return render_template('index.html', title = title,all_pitches=all_pitches )
 
-# @main.route('/movies/<int:id>')
-# def movies(movie_id):
-
-#     '''
-#     View movie page function that returns the movie details page and its data
-#     '''
-#     return render_template('movie.html',id = movie_id)
-
-# @main.route('/user/review/new/<int:id>', methods = ['GET','POST'])
-# def new_review(id):
-#     form = ReviewForm()
-#     movie = get_movie(id)
-
-#     if form.validate_on_submit():
-#         title = form.title.data
-#         review = form.review.data
-#         new_review = Review(movie.id,title,movie.poster,review)
-#         new_review.save_review()
-#         return redirect(url_for('movie',id = movie.id ))
-
-#     title = f'{movie.title} review'
-#     return render_template('new_review.html',title = title, review_form=form, movie=movie)
-
- 
-
- 
-
-    
-# @main.route('/search/<movie_name>')
-# def search(movie_name):
-#     '''
-#     View function to display the search results
-#     '''
-#     movie_name_list = movie_name.split(" ")
-#     movie_name_format = "+".join(movie_name_list)
-#     searched_movies = search_movie(movie_name_format)
-#     title = f'search results for {movie_name}'
-#     return render_template('search.html',movies = searched_movies)
 
 
 @main.route('/pitch/new', methods = ['GET','POST'])
@@ -83,7 +45,30 @@ def new_pitch():
 def diplay_pitch():
     all_pitches = Pitch.get_pitches()
     print(all_pitches)
-    return render_template("pitches.html",all_pitches=all_pitches)
+    return render_template("pitches.html",all_pitches=all_pitches )
+
+
+@main.route('/comments/<int:id>', methods = ['GET','POST'])
+@login_required
+def new_comment(id):
+    form = CommentForm()   
+
+    if form.validate_on_submit():
+        comment = form.comment.data
+       
+        new_comment = Comment(user_id=current_user.id)
+        new_comment.save_comment()
+        return redirect(url_for('main.index',comment=comment))
+
+    return render_template('comments.html', comment_form=form)
+
+
+@main.route('/pitches/')
+def diplay_comment(id):
+    comment = Comment.get_comment()
+    # print(all_pitches)
+    return render_template("comments.html",comment=comment,pitch_id=pitch.id)
+
 
 
 # @main.route('/user/<uname>/update',methods = ['GET','POST'])

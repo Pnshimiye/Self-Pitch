@@ -86,7 +86,7 @@ class Comment(db.Model):
     __tablename__ ='comments'
 
     id = db.Column(db.Integer,primary_key = True)
-    content = db.Column(db.String(400))
+    comment = db.Column(db.String(400))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     pitch_id= db.Column(db.Integer,db.ForeignKey('pitches.id'))
 
@@ -96,9 +96,9 @@ class Comment(db.Model):
         db.session.commit()
 
     @classmethod
-    def get_comment(id):
+    def get_comment():
 
-        Comment= Comment.query.filter(pitch_id)
+        comment= Comment.query.filter_by(pitch_id)     
 
         return comment
 
