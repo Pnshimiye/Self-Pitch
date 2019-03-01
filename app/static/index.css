@@ -1,11 +1,23 @@
 .head{
-  
+  margin-top:350px;
+  margin-bottom:auto;
+  font-family: fantasy;
+  font-size: 50px;
+
 }
 
-body{
+#index{
   text-align:center;
   background-image: url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/H8WuRINimqur8ud/time-background-dark-blue-background-with-digital-clock_b72tac2__F0000.png');
+  background-size: cover;
+  color: white;
+  font-family: fantasy;
+  font-size: 50px;
+
+
 }
 pitch-container{
   background-color: aquamarine;
+  font-family:Sofia;
+  font-size: 30px;
 }
