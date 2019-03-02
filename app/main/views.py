@@ -64,6 +64,9 @@ def new_comment(id):
     return render_template('comments.html', comment_form=form)
 
 
+ 
+
+
 
 
 

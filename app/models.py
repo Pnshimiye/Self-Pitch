@@ -60,7 +60,8 @@ class Pitch(db.Model):
     teaser= db.Column(db.String(50))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))  
     comment = db.relationship('Comment',backref = 'pitches',lazy="dynamic")
-    votes = db.relationship('Pitchvote', backref='pitches', lazy='dynamic')
+    
+     
 
  
 
@@ -104,28 +105,6 @@ class Comment(db.Model):
 
         return comment
 
-class Pitchvote(db.Model):
-    __tablename__ = 'pitch_vote'
-    id = db.Column(db.Integer, primary_key=True)   
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
-
-
- def upvote_pitch(self, pitch):
-        if not self.has_upvoted_pitch(pitch):
-            upvote = Pitchvote(user_id=self.id, pitch_id=pitch.id)
-            db.session.add(like)
-
-    def unlike_post(self, post):
-        if self.has_liked_post(post):
-            PostLike.query.filter_by(
-                user_id=self.id,
-                post_id=post.id).delete()
-
-    def has_liked_post(self, post):
-        return PostLike.query.filter(
-            PostLike.user_id == self.id,
-            PostLike.post_id == post.id).count() > 0
-
-
+ 
 
 
